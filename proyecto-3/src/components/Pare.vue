@@ -1,24 +1,24 @@
 <template>
   <div>
-    <modal-bootstrap>
-
-      <template v-slot:footer>
-            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Save changes</button>
-        </template>
+    <h1 :class="{'d-none': !display}">Heu tancat el Modal</h1>
+    <ModalBootstrap :class="{'d-none': display}">
 
         <template v-slot:header>
-            <h5 class="modal-title">Modal title</h5>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-            </button>
+            <h5>Hola Mundo</h5>
         </template>
 
         <template v-slot:body>
-            <p>Modal body text goes here.</p>
+            <h5 class="card-title">Cambio de Moneda</h5>
+            <input type="text" v-model='euro'>
+            <p class="card-text mt-2">El cambio de {{euro}}€ en dolares es {{ euro | convertir}}$</p>
         </template>
 
-    </modal-bootstrap>
+        <template v-slot:footer>
+        <button type="button" class="btn btn-primary" @click="display = !display">Cerrar</button>
+        </template>
+   
+
+    </ModalBootstrap>
   </div>
 </template>
 
@@ -29,8 +29,16 @@ export default {
   components: {
     ModalBootstrap
   },
-  props: {
-    msg: String
+  data(){
+      return{
+          euro: 0,
+          display : false
+      }
+  },
+  filters:{
+      convertir: function(value){
+          return value * 1.23;
+      }
   }
 }
 </script>
